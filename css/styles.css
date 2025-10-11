@@ -1780,7 +1780,7 @@ fieldset {
 }
 .services-item.no-img {
   border-left: 1px solid var(--stroke-2);
-  padding: 50px 50px 50px 70px;
+  padding: 30px;
 }
 .services-item.no-img h5 {
   letter-spacing: -0.6px;
