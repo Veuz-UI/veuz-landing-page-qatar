@@ -2881,6 +2881,9 @@ fieldset {
   }
 }
 @media (max-width: 767px) {
+  .section-form .section-form-content{
+    width: 90% !important;
+  }
   .mask svg {
     width: 500px;
     height: 500px;
