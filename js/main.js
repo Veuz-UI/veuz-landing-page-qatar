@@ -304,6 +304,48 @@
         }
     };
 
+
+    
+
+    const quoteBtn = document.getElementById('quoteBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const quoteModal = document.getElementById('quoteModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const quoteForm = document.getElementById('quoteForm');
+
+        // Open Modal
+        quoteBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            quoteModal.classList.add('active');
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close Modal
+        const closeModal = () => {
+            quoteModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        // Close on Escape Key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && quoteModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Form Submit
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Form submitted! This is a demo.');
+            quoteForm.reset();
+            closeModal();
+        });
+
     var preloader = function () {
         $("#loading").fadeOut("slow", function () {
             $(this).remove();
