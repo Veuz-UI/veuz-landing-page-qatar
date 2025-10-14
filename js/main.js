@@ -28,36 +28,49 @@
     ("use strict");
 
     var headerSticky = function () {
-        let lastScrollTop = 0;
-        let delta = 5;
-        let navbarHeight = $(".header-sticky").outerHeight();
-        let didScroll = false;
+    let lastScrollTop = 0;
+    let delta = 5;
+    let navbarHeight = $(".header-sticky").outerHeight();
+    let didScroll = false;
 
-        $(window).scroll(function () {
-            didScroll = true;
-        });
+    $(window).scroll(function () {
+        didScroll = true;
+    });
 
-        setInterval(function () {
-            if (didScroll) {
-                let st = $(window).scrollTop();
-                navbarHeight = $(".header-sticky").outerHeight();
+    setInterval(function () {
+        if (didScroll) {
+            let st = $(window).scrollTop();
+            navbarHeight = $(".header-sticky").outerHeight();
 
-                if (st > navbarHeight) {
-                    if (st > lastScrollTop + delta) {
-                        $(".header-sticky").css("top", `-${navbarHeight}px`);
-                    } else if (st < lastScrollTop - delta) {
-                        $(".header-sticky").css("top", "0");
-                        $(".header-sticky").addClass("header-bg");
-                    }
-                } else {
-                    $(".header-sticky").css("top", "unset");
-                    $(".header-sticky").removeClass("header-bg");
-                }
-                lastScrollTop = st;
-                didScroll = false;
+            // ഹെഡറിൻ്റെ ഉയരത്തേക്കാൾ കൂടുതൽ സ്ക്രോൾ ചെയ്യുമ്പോൾ മാത്രം സ്റ്റൈലുകൾ മാറ്റുന്നു
+            if (st > navbarHeight) {
+                
+                // ⚠️ പ്രധാന മാറ്റം ഇവിടെ: താഴേക്ക് സ്ക്രോൾ ചെയ്യുമ്പോൾ ഹെഡറിനെ ഒളിപ്പിക്കരുത് (top: 0 ആയി നിലനിർത്തുക)
+                // if (st > lastScrollTop + delta) {
+                //     $(".header-sticky").css("top", `-${navbarHeight}px`); // ഈ ലൈൻ ഒഴിവാക്കുന്നു
+                // } 
+                
+                // മുകളിലേക്ക് സ്ക്രോൾ ചെയ്യുമ്പോഴും, താഴേക്ക് സ്ക്രോൾ ചെയ്യുമ്പോഴും ഹെഡർ കാണിക്കണം
+                // top: 0 എന്നതും, header-bg ക്ലാസ്സും എപ്പോഴും ചേർക്കുക
+                $(".header-sticky").css("top", "0");
+                $(".header-sticky").addClass("header-bg");
+                
+            } else {
+                // പേജിൻ്റെ മുകളിൽത്തന്നെയാണെങ്കിൽ (ഹെഡർ ഉയരത്തേക്കാൾ കുറഞ്ഞ സ്ക്രോൾ)
+                $(".header-sticky").css("top", "unset");
+                $(".header-sticky").removeClass("header-bg");
             }
-        }, 250);
-    };
+
+            lastScrollTop = st;
+            didScroll = false;
+        }
+    }, 250);
+};
+
+// ⚠️ jQuery-യിൽ ഈ ഫംഗ്ഷൻ വിളിക്കാൻ മറക്കരുത്
+// $(document).ready(function() {
+//     headerSticky();
+// });
 
     var footer = function () {
         function checkScreenSize() {
