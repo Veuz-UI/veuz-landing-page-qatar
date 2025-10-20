@@ -130,24 +130,51 @@
             });
         }
 
-        if ($('.text-animation p').length > 0) {
-            $('.text-animation p').each(function (index, splitTextLine) {
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: splitTextLine,
-                        start: 'top 90%',
-                        end: 'bottom 60%',
-                        scrub: false,
-                        markers: false,
-                        toggleActions: 'play none none none'
-                    }
-                });
-                const itemSplitted = new SplitText(splitTextLine, { type: "lines" });
-                gsap.set(splitTextLine, { perspective: 400 });
-                itemSplitted.split({ type: "lines" });
-                tl.from(itemSplitted.lines, { duration: 1, delay: 0.5, opacity: 0, rotationX: -80, force3D: true, transformOrigin: "top center -50", stagger: 0.1 });
-            });
-        }
+       if ($('.text-animation p').length > 0) {
+    $('.text-animation p').each(function (index, splitTextLine) {
+
+        // 1️⃣ Clone the paragraph’s visual text (ignore tags)
+        const clone = splitTextLine.cloneNode(true);
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = clone.innerText; // use visible text only
+
+        // 2️⃣ Replace temporarily for SplitText measurement
+        const originalHTML = splitTextLine.innerHTML;
+        splitTextLine.innerHTML = tempDiv.innerText;
+
+        // 3️⃣ Now do SplitText safely
+        const itemSplitted = new SplitText(splitTextLine, { type: "lines", linesClass: "split-line" });
+        gsap.set(splitTextLine, { perspective: 400 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: splitTextLine,
+                start: 'top 90%',
+                end: 'bottom 60%',
+                scrub: false,
+                markers: false,
+                toggleActions: 'play none none none'
+            }
+        });
+
+        tl.from(itemSplitted.lines, {
+            duration: 1,
+            delay: 0.3,
+            opacity: 0,
+            rotationX: -80,
+            force3D: true,
+            transformOrigin: "top center -50",
+            stagger: 0.1
+        });
+
+        // 4️⃣ After the split animation is ready, restore your original HTML
+        tl.add(() => {
+            splitTextLine.innerHTML = originalHTML;
+        });
+    });
+}
+
+
 
         if ($('.text-animation-top').length > 0) {
             $('.text-animation-top').each(function (index, splitTextLine2) {

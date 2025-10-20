@@ -2351,7 +2351,7 @@ fieldset {
   padding-bottom: 132px;
 }
 .section-services.p-services .tf-marquee {
-  padding-bottom: 134px;
+  padding-bottom: 30px;
 }
 .section-services.p-services .services-item {
   flex: 1 1 auto;
@@ -2426,9 +2426,7 @@ fieldset {
 
 /*-------------- Responsive ----------------- */
 @media (min-width: 551px) {
-  .sw-border .swiper-slide .services-item {
-    border-left: 0;
-  }
+  
   .sw-border .swiper-slide:first-child .services-item {
     border-left: 1px solid var(--stroke-2);
   }
@@ -3108,7 +3106,7 @@ fieldset {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, .8);
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s ease;
