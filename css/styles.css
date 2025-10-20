@@ -1849,11 +1849,12 @@ fieldset {
 .project-item .item-content .title-project {
   margin-bottom: 26px;
   letter-spacing: 0.2px;
+  display: inline-block;
 }
-.project-item .item-content .title-project a {
+.project-item .item-content .title-project {
   position: relative;
 }
-.project-item .item-content .title-project a::before {
+.project-item .item-content .title-project::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -1951,10 +1952,10 @@ fieldset {
 .project-item.project-gird-item:hover .image::after {
   height: 100%;
 }
-.project-item:hover .title-project a {
+.project-item:hover .title-project {
   color: var(--primary);
 }
-.project-item:hover .title-project a::before {
+.project-item:hover .title-project::before {
   left: 0;
   right: auto;
   width: 100%;
